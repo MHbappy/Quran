@@ -5,6 +5,37 @@
     android:background="#d1d1d1"
     android:orientation="vertical">
 
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        >
+
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:hint="search key"
+            android:paddingTop="3dp"
+            android:background = "@drawable/rounded_edittext"
+            android:ems="12"
+            android:id="@+id/search_key"
+
+            />
+
+        <Button
+            android:text="Search"
+            android:paddingTop="2dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/search_button_key" />
+
+
+    </LinearLayout>
+
+
     <ListView
         android:id="@+id/listview_product"
         android:layout_width="match_parent"

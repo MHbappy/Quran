@@ -3,7 +3,12 @@ package com.quran.islam.quran;
 import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -16,6 +21,7 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.List;
+import java.util.Locale;
 
 public class SearchByKeywordActivity extends AppCompatActivity {
 
@@ -24,11 +30,17 @@ public class SearchByKeywordActivity extends AppCompatActivity {
     private List<MasterTable> mProductList;
     private DatabaseHelper mDBHelper;
 
+    private EditText searchkey;
+    private Button buttonSearchKey;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_by_keyword);
         lvProduct = (ListView)findViewById(R.id.listview_product);
+        ///searching something
+        searchkey = (EditText) findViewById(R.id.search_key);
+        buttonSearchKey = (Button) findViewById(R.id.search_button_key);
         mDBHelper = new DatabaseHelper(this);
 
 
@@ -49,6 +61,29 @@ public class SearchByKeywordActivity extends AppCompatActivity {
         adapter = new ListProductAdapter(this, mProductList);
         //Set adapter for listview
         lvProduct.setAdapter(adapter);
+
+
+
+        searchkey.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                String text = buttonSearchKey.getText().toString().toLowerCase(Locale.getDefault());
+                adapter.filter(text);
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
+
     }
 
 
