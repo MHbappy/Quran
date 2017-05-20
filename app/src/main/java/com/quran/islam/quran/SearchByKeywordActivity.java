@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -21,7 +20,6 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.List;
-import java.util.Locale;
 
 public class SearchByKeywordActivity extends AppCompatActivity {
 
@@ -68,8 +66,12 @@ public class SearchByKeywordActivity extends AppCompatActivity {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
-                String text = buttonSearchKey.getText().toString().toLowerCase(Locale.getDefault());
-                adapter.filter(text);
+//                String text = buttonSearchKey.getText().toString().toLowerCase(Locale.getDefault());
+//                adapter.filter(text);
+
+                adapter.getFilter().filter(charSequence);
+
+
             }
 
             @Override

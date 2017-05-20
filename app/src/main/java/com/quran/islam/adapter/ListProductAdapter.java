@@ -6,27 +6,24 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.LinearLayout;
-import android.widget.ListView;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.quran.islam.domain.MasterTable;
 import com.quran.islam.quran.DetailByKey;
 import com.quran.islam.quran.R;
-import com.quran.islam.quran.SearchByKeywordActivity;
+
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-import java.util.Set;
 
-public class ListProductAdapter extends BaseAdapter {
+
+public class ListProductAdapter extends BaseAdapter implements Filterable {
     private Context mContext;
     private List<MasterTable> mProductList;
     private ArrayList<MasterTable> arraylist;
+    private ValueFilter valueFilter;
     private int po;
 
     public ListProductAdapter(Context mContext, List<MasterTable> mProductList) {
@@ -44,7 +41,8 @@ public class ListProductAdapter extends BaseAdapter {
 
     @Override
     public Object getItem(int position) {
-        return mProductList.get(position);
+
+        return arraylist.get(position);
     }
 
     @Override
@@ -61,79 +59,79 @@ public class ListProductAdapter extends BaseAdapter {
 
 
 
-
         v.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(mContext,
-                        "The favorite list would appear on clicking this icon"+mProductList.get(position).getSearchKeyWord(),
-                        Toast.LENGTH_LONG).show();
+
+//                Toast.makeText(mContext,
+//                        "The favorite list would appear on clicking this icon"+mProductList.get(position).getSearchKeyWord()+mProductList+position,
+//                        Toast.LENGTH_LONG).show();
+
 
                 Intent intent = new Intent(mContext, DetailByKey.class);
+                intent.putExtra("key",mProductList.get(position).getDetail());
 
-//                ArrayList<String> arrayList = new ArrayList<String>();
-//                arrayList.add("Ekta");
-//                arrayList.add("Duita");
-//                arrayList.add("Tinta");
-//
-//                Map<String, String> map = new HashMap<String, String>();
-//                map.put("1",arrayList.get(1));
-//                map.put("2",arrayList.get(2));
-//
-//
-//                Set<String> keys = map.keySet();
-//
-//
-//                for(String key: keys){
-//                    System.out.println(key);
-//
-//                    if(Integer.toString(position) == key){
-//                        intent.putExtra(Integer.toString(position), map.get(key));
-//                        mContext.startActivity(intent);
-//                    }
-//
-//                }
+                Toast.makeText(mContext,
+                        "The favorite list would appear on clicking this icon"+mProductList.get(position).getSearchKeyWord()+mProductList.get(position).getDetail(),
+                        Toast.LENGTH_LONG).show();
 
-                //send item view position and get get detail by this position   
-                intent.putExtra(Integer.toString(position),mProductList.get(position).getDetail());
                 mContext.startActivity(intent);
-
-
-
-
-
-//                    intent.putExtra(Integer.toString(position), "hello things");
-//                    mContext.startActivity(intent);
-
-
-
 
             }
         });
-
         return v;
     }
 
-    // Filter Class
-    public void filter(String charText) {
-        charText = charText.toLowerCase(Locale.getDefault());
-        mProductList.clear();
-        if (charText.length() == 0) {
-            mProductList.addAll(arraylist);
+
+    @Override
+    public Filter getFilter() {
+        if(valueFilter==null) {
+
+            valueFilter=new ValueFilter();
         }
-        else
-        {
-            for (MasterTable wp : arraylist)
-            {
-                if (wp.getSearchKeyWord().toLowerCase(Locale.getDefault()).contains(charText))
-                {
-                    mProductList.add(wp);
-                }
-            }
-        }
-        notifyDataSetChanged();
+
+        return valueFilter;
     }
 
+
+
+    private class ValueFilter extends Filter {
+
+        //Invoked in a worker thread to filter the data according to the constraint.
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+            FilterResults results=new FilterResults();
+            if(constraint!=null && constraint.length()>0){
+                ArrayList<MasterTable> filterList=new ArrayList<MasterTable>();
+                for(int i=0;i<arraylist.size();i++){
+                    if((arraylist.get(i).getSearchKeyWord().toUpperCase())
+                            .contains(constraint.toString().toUpperCase())) {
+                        MasterTable contacts = new MasterTable();
+                        contacts.setSearchKeyWord(arraylist.get(i).getSearchKeyWord());
+                        contacts.setDetail(arraylist.get(i).getDetail());
+                        contacts.setId(arraylist.get(i).getId());
+                        filterList.add(contacts);
+                    }
+                }
+                results.count=filterList.size();
+                results.values=filterList;
+            }else{
+                results.count=arraylist.size();
+                results.values=arraylist;
+            }
+            return results;
+        }
+
+
+        //Invoked in the UI thread to publish the filtering results in the user interface.
+        @SuppressWarnings("unchecked")
+        @Override
+        protected void publishResults(CharSequence constraint,
+                                      FilterResults results) {
+            mProductList=(ArrayList<MasterTable>) results.values;
+            notifyDataSetChanged();
+        }
+    }
 }
 
 

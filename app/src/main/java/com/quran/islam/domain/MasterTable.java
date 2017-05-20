@@ -11,6 +11,11 @@ public class MasterTable {
     private String searchKeyWord;
     private String detail;
 
+    public MasterTable() {
+
+    }
+
+
     public MasterTable(int id, String searchKeyWord, String detail) {
         this.id = id;
         this.searchKeyWord = searchKeyWord;

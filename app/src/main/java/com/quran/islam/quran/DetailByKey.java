@@ -22,17 +22,25 @@ public class DetailByKey extends AppCompatActivity {
 
         textView = (TextView) findViewById(R.id.textView);
 
-        Intent iin= getIntent(); Bundle bundle = iin.getExtras();
+        Intent iin= getIntent();
+        Bundle b = iin.getExtras();
 
-        if (bundle != null) {
-            Set<String> keys = bundle.keySet();
-            Iterator<String> it = keys.iterator();
-            Log.e("","Dumping Intent start");
-            while (it.hasNext()) {
-                String key = it.next();
-                String j = (String) bundle.get(key);
-                textView.setText(j);
-            }
-            }
+//        if (bundle != null) {
+//            Set<String> keys = bundle.keySet();
+//            Iterator<String> it = keys.iterator();
+//            Log.e("","Dumping Intent start");
+//            while (it.hasNext()) {
+//                String key = it.next();
+//                String j = (String) bundle.get(key);
+//                textView.setText(j);
+//            }
+//            }
+
+        if(b!=null)
+        {
+            String j =(String) b.get("key");
+            textView.setText(j);
+        }
+
     }
 }

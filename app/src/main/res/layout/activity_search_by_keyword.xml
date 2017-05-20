@@ -22,7 +22,6 @@
             android:background = "@drawable/rounded_edittext"
             android:ems="12"
             android:id="@+id/search_key"
-
             />
 
         <Button
