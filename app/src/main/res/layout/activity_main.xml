@@ -32,6 +32,29 @@
 
 
     <Button
+        android:id="@+id/qkey"
+        style="?android:textAppearanceSmall"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="@string/full_key"
+        android:background="@color/colorPrimary"
+        android:textColor="@android:color/white"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/detail"
+        style="?android:textAppearanceSmall"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="@string/full_detail"
+        android:background="@color/colorPrimary"
+        android:textColor="@android:color/white"
+        android:textStyle="bold" />
+
+
+    <Button
         android:id="@+id/aboutUs"
         style="?android:textAppearanceSmall"
         android:layout_width="match_parent"
@@ -41,5 +64,7 @@
         android:background="@color/colorPrimary"
         android:textColor="@android:color/white"
         android:textStyle="bold" />
+
+
 
 </LinearLayout>

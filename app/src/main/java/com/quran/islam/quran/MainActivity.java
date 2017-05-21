@@ -12,6 +12,8 @@ public class MainActivity extends AppCompatActivity {
     private Button buttonForFullQuran;
     private Button buttonForKeyWordSearch;
     private Button buttonForAboutUs;
+    private Button buttonForQkey;
+    private Button buttonForDetail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,6 +23,8 @@ public class MainActivity extends AppCompatActivity {
         buttonForFullQuran = (Button) findViewById(R.id.fullQuran);
         buttonForKeyWordSearch = (Button) findViewById(R.id.searchByKeyword);
         buttonForAboutUs = (Button) findViewById(R.id.aboutUs);
+        buttonForQkey = (Button)findViewById(R.id.qkey);
+        buttonForDetail = (Button)findViewById(R.id.detail);
 
 
         ///button for quran
@@ -42,6 +46,23 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
+        buttonForQkey.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent( MainActivity.this, FullKey.class);
+                startActivity(i);
+            }
+        });
+
+        buttonForDetail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent( MainActivity.this, Qdetail.class);
+                startActivity(i);
+            }
+        });
+
         ///butoon for about us
         buttonForAboutUs.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -50,6 +71,15 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
+
+
+
+
+
+
+
+
+
     }
 
 }
